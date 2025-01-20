@@ -1,0 +1,73 @@
+<div data-controller="modal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-10 overflow-y-auto">
+    <div data-modal-target="dialog" data-action="click->modal#clickOutside" class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+        <%= form_with(model: task, class: "space-y-6") do |f| %>
+          <div class="space-y-6">
+            <div>
+              <%= f.label :title, class: "block text-sm font-medium text-gray-900 mb-2" %>
+              <%= f.text_field :title, 
+                  class: "block w-full rounded-lg border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset #{task.errors[:title].any? ? 'ring-red-300' : 'ring-gray-300'} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm",
+                  placeholder: "Enter task title" %>
+              <% if task.errors[:title].any? %>
+                <p class="mt-2 text-sm text-red-600"><%= task.errors[:title].join(", ") %></p>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :project_name, class: "block text-sm font-medium text-gray-900 mb-2" %>
+              <%= f.text_field :project_name, 
+                  class: "block w-full rounded-lg border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset #{task.errors[:project_name].any? ? 'ring-red-300' : 'ring-gray-300'} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm",
+                  placeholder: "Enter project name" %>
+              <% if task.errors[:project_name].any? %>
+                <p class="mt-2 text-sm text-red-600"><%= task.errors[:project_name].join(", ") %></p>
+              <% end %>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <%= f.label :start_time, class: "block text-sm font-medium text-gray-900 mb-2" %>
+                <%= f.datetime_field :start_time, 
+                    class: "block w-full rounded-lg border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset #{task.errors[:start_time].any? ? 'ring-red-300' : 'ring-gray-300'} focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm" %>
+                <% if task.errors[:start_time].any? %>
+                  <p class="mt-2 text-sm text-red-600"><%= task.errors[:start_time].join(", ") %></p>
+                <% end %>
+              </div>
+
+              <div>
+                <%= f.label :end_time, class: "block text-sm font-medium text-gray-900 mb-2" %>
+                <%= f.datetime_field :end_time, 
+                    class: "block w-full rounded-lg border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset #{task.errors[:end_time].any? ? 'ring-red-300' : 'ring-gray-300'} focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm" %>
+                <% if task.errors[:end_time].any? %>
+                  <p class="mt-2 text-sm text-red-600"><%= task.errors[:end_time].join(", ") %></p>
+                <% end %>
+              </div>
+            </div>
+
+            <div>
+              <%= f.label :description, class: "block text-sm font-medium text-gray-900 mb-2" %>
+              <%= f.text_area :description, 
+                  rows: 4, 
+                  class: "block w-full rounded-lg border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset #{task.errors[:description].any? ? 'ring-red-300' : 'ring-gray-300'} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm",
+                  placeholder: "Add a description..." %>
+              <% if task.errors[:description].any? %>
+                <p class="mt-2 text-sm text-red-600"><%= task.errors[:description].join(", ") %></p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="mt-8 flex gap-3">
+            <button type="button" 
+                    data-action="modal#close"
+                    class="flex-1 rounded-lg px-4 py-3 text-sm font-semibold border border-gray-300 text-gray-700 shadow-sm hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+              Cancel
+            </button>
+            <%= f.submit class: "flex-1 rounded-lg px-4 py-3 text-sm font-semibold shadow-sm text-white bg-blue-600 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
