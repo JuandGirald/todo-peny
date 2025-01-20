@@ -12,19 +12,8 @@
       <% end %>
     </div>
 
-    <div class="flex space-x-6 mb-8 border-b pb-4">
-      <button class="flex items-center text-blue-600">
-        All <span class="ml-2 bg-blue-600 text-white rounded-full px-2 py-0.5 text-sm"><%= Task.count %></span>
-      </button>
-      <button class="flex items-center text-gray-500">
-        Pending <span class="ml-2 bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-sm"><%= Task.open.count %></span>
-      </button>
-      <button class="flex items-center text-gray-500">
-        Completed <span class="ml-2 bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-sm"><%= Task.completed.count %></span>
-      </button>
-      <button class="flex items-center text-gray-500">
-        Archived <span class="ml-2 bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-sm"><%= Task.archived.count %></span>
-      </button>
+    <div id="tabs">
+      <%= render TabsComponent.new %>
     </div>
 
     <%= render "task_list", tasks: @tasks %>

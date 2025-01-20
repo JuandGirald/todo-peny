@@ -1,0 +1,16 @@
+<div class="flex space-x-6 mb-8 border-b pb-4">
+  <%= link_to tasks_path(status: nil), 
+      class: "flex items-center #{params[:status].nil? ? 'text-blue-600' : 'text-gray-500'}" do %>
+    All <span class="ml-2 <%= params[:status].nil? ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600' %> rounded-full px-2.5 py-0.5 text-sm font-medium"><%= all_count %></span>
+  <% end %>
+
+  <%= link_to tasks_path(status: 'open'), 
+      class: "flex items-center #{params[:status] == 'open' ? 'text-blue-600' : 'text-gray-500'}" do %>
+    Pending <span class="ml-2 <%= params[:status] == 'open' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600' %> rounded-full px-2.5 py-0.5 text-sm font-medium"><%= pending_count %></span>
+  <% end %>
+
+  <%= link_to tasks_path(status: 'completed'), 
+      class: "flex items-center #{params[:status] == 'completed' ? 'text-blue-600' : 'text-gray-500'}" do %>
+    Completed <span class="ml-2 <%= params[:status] == 'completed' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600' %> rounded-full px-2.5 py-0.5 text-sm font-medium"><%= completed_count %></span>
+  <% end %>
+</div>

@@ -1,7 +1,5 @@
 class TaskItemComponent < ViewComponent::Base
   include Turbo::FramesHelper
-  # include ActionView::Helpers::TagHelper
-  # include ActionView::Context
 
   attr_reader :task
 

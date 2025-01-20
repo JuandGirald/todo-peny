@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:update, :destroy]
 
   def index
-    @tasks = Task.order(start_time: :desc)
+    @tasks = filtered_tasks
+    @tasks = @tasks.order(start_time: :desc)
   end
 
   def new
@@ -39,6 +40,7 @@ class TasksController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.update("tasks_list", partial: "tasks/task_list", locals: { tasks: Task.all }),
+            turbo_stream.update("tabs", partial: "tasks/tabs"),
             turbo_stream.update("task_modal", ""),
             turbo_stream.update("flash_messages",
               partial: "shared/flash",
@@ -62,9 +64,14 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(@task, partial: "tasks/task", locals: { task: @task }),
+            turbo_stream.replace(@task),
+            turbo_stream.update("tasks_list", partial: "tasks/task_list", locals: { tasks: filtered_tasks }),
+            turbo_stream.update("tabs", partial: "tasks/tabs"),
             turbo_stream.update("task_modal", ""),
-            turbo_stream.update("flash_messages", partial: "shared/flash", locals: { message: "Task updated successfully", type: "success" })
+            turbo_stream.update("flash_messages",
+              partial: "shared/flash",
+              locals: { message: "Task was successfully updated", type: "success" }
+            )
           ]
         end
       else
@@ -85,6 +92,7 @@ class TasksController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.update("tasks_list", partial: "tasks/task_list", locals: { tasks: Task.all }),
+          turbo_stream.update("tabs", partial: "tasks/tabs"),
           turbo_stream.update("flash_messages",
             partial: "shared/flash",
             locals: { message: "Task deleted successfully", type: "success" }
@@ -98,6 +106,17 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def filtered_tasks
+    case params[:status]
+    when 'open'
+      Task.open
+    when 'completed'
+      Task.completed
+    else
+      Task.all
+    end
   end
 
   def task_params

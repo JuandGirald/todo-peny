@@ -17,7 +17,7 @@
       </div>
       
       <div class="flex items-center gap-3">
-        <%= button_to task_path(task), 
+        <%= button_to task_path(task, status: params[:status]), 
             method: :patch,
             class: "#{task.completed? ? 'bg-blue-600' : 'border border-gray-200'} p-2 rounded-full hover:scale-105 transition-transform",
             params: { task: { status: task.completed? ? 'open' : 'completed' } } do %>
@@ -30,7 +30,7 @@
           <% end %>
         <% end %>
 
-        <%= link_to edit_task_path(task), 
+        <%= link_to edit_task_path(task, status: params[:status]), 
             class: "text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-full transition-colors",
             data: { turbo_frame: "task_modal" } do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,7 +38,7 @@
           </svg>
         <% end %>
 
-        <%= button_to task_path(task),
+        <%= button_to task_path(task, status: params[:status]),
             method: :delete,
             class: "text-gray-400 hover:text-red-600 p-2 hover:bg-red-50 rounded-full transition-colors",
             data: { turbo_confirm: "Are you sure you want to delete this task?" } do %>

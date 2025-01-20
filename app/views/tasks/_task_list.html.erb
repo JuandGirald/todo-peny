@@ -6,6 +6,10 @@
       </div>
     <% end %>
   <% else %>
-    <%= render "tasks/empty_state" %>
+    <% if params[:status] == 'completed' %>
+      <%= render "tasks/empty_state_completed" %>
+    <% else %>
+      <%= render "tasks/empty_state" %>
+    <% end %>
   <% end %>
 </div>
