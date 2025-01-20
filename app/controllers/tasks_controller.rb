@@ -3,7 +3,6 @@ class TasksController < ApplicationController
 
   def index
     @tasks = filtered_tasks
-    @tasks = @tasks.order(start_time: :desc)
   end
 
   def new
@@ -109,13 +108,26 @@ class TasksController < ApplicationController
   end
 
   def filtered_tasks
-    case params[:status]
-    when 'open'
-      Task.open
-    when 'completed'
-      Task.completed
+    tasks = case params[:status]
+      when 'open'
+        Task.open
+      when 'completed'
+        Task.completed
+      else
+        Task.all
+      end
+
+    case params[:sort_by]
+    when 'title'
+      tasks.order(title: :asc)
+    when 'project'
+      tasks.order(project_name: :asc)
+    when 'start_time'
+      tasks.order(start_time: :desc)
+    when 'created_at'
+      tasks.order(created_at: :desc)
     else
-      Task.all
+      tasks.order(created_at: :desc) # default sorting
     end
   end
 
