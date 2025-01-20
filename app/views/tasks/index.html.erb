@@ -1,0 +1,34 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">My Tasks</h1>
+        <p class="text-gray-500 mt-1"><%= Time.current.strftime('%A, %d %B') %></p>
+      </div>
+      <%= link_to new_task_path, 
+          class: "bg-blue-100 text-blue-600 px-4 py-2 rounded-lg flex items-center",
+          data: { turbo_frame: "task_modal" } do %>
+        <span class="text-xl mr-2">+</span> New Task
+      <% end %>
+    </div>
+
+    <div class="flex space-x-6 mb-8 border-b pb-4">
+      <button class="flex items-center text-blue-600">
+        All <span class="ml-2 bg-blue-600 text-white rounded-full px-2 py-0.5 text-sm"><%= Task.count %></span>
+      </button>
+      <button class="flex items-center text-gray-500">
+        Pending <span class="ml-2 bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-sm"><%= Task.open.count %></span>
+      </button>
+      <button class="flex items-center text-gray-500">
+        Completed <span class="ml-2 bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-sm"><%= Task.completed.count %></span>
+      </button>
+      <button class="flex items-center text-gray-500">
+        Archived <span class="ml-2 bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-sm"><%= Task.archived.count %></span>
+      </button>
+    </div>
+
+    <%= render "task_list", tasks: @tasks %>
+  </div>
+</div>
+
+<%= turbo_frame_tag "task_modal" %>
