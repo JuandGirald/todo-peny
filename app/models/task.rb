@@ -1,8 +1,7 @@
 class Task < ApplicationRecord
   enum status: {
     open: 0,
-    completed: 1,
-    archived: 2
+    completed: 1
   }
 
   validates :title, presence: true
