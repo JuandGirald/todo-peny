@@ -1,4 +1,10 @@
-// Import and register all your controllers from the importmap via controllers/**/*_controller
-import { application } from "../application"
-import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
-eagerLoadControllersFrom("controllers", application)
+// Import and register all your controllers from the importmap under controllers/*
+import { application } from "controllers/application"
+
+import DropdownController from "./dropdown_controller.js"
+import FlashController from "./flash_controller.js"
+import ModalController from "./modal_controller.js"
+
+application.register("dropdown", DropdownController)
+application.register("flash", FlashController)
+application.register("modal", ModalController)
